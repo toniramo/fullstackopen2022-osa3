@@ -26,8 +26,14 @@ let notes = [
     }
 ];
 
-app.get(`/api/persons`, (request, response) => {
+app.get('/api/persons', (request, response) => {
     response.json(notes);
+})
+
+app.get('/api/info', (request, response) => {
+    const info1 = `<p>Phonebook has info for ${notes.length} people.</p>`;
+    const info2 = `<p>${new Date()}</p>`;
+    response.send(info1.concat(info2));
 })
 
 const PORT = 3001;
