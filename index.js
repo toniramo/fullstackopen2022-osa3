@@ -28,12 +28,18 @@ let notes = [
 
 app.get('/api/persons', (request, response) => {
     response.json(notes);
-})
+});
 
 app.get('/api/info', (request, response) => {
     const info1 = `<p>Phonebook has info for ${notes.length} people.</p>`;
     const info2 = `<p>${new Date()}</p>`;
     response.send(info1.concat(info2));
+});
+
+app.get('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id);
+    const note = notes.find(note => note.id === id);
+    note ? response.json(note) : response.status(404).end();
 })
 
 const PORT = 3001;
