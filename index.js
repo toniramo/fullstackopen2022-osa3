@@ -3,7 +3,7 @@ const app = express();
 
 app.use(express.json());
 
-let notes = [
+let persons = [
     {
         "name": "Arto Hellas",
         "number": "040-654321",
@@ -27,19 +27,29 @@ let notes = [
 ];
 
 app.get('/api/persons', (request, response) => {
-    response.json(notes);
+    response.json(persons);
 });
 
 app.get('/api/info', (request, response) => {
-    const info1 = `<p>Phonebook has info for ${notes.length} people.</p>`;
+    const info1 = `<p>Phonebook has info for ${persons.length} people.</p>`;
     const info2 = `<p>${new Date()}</p>`;
     response.send(info1.concat(info2));
 });
 
 app.get('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id);
-    const note = notes.find(note => note.id === id);
-    note ? response.json(note) : response.status(404).end();
+    const person = persons.find(person => person.id === id);
+    person ? response.json(person) : response.status(404).end();
+})
+
+app.delete('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id);
+    if (!persons.find(person => person.id === id)) {
+        return response.status(404).end();
+    }
+    persons = persons.filter(person => person.id !== id);
+
+    response.status(204).end();
 })
 
 const PORT = 3001;
