@@ -52,9 +52,16 @@ app.delete('/api/persons/:id', (request, response) => {
 })
 
 app.post('/api/persons', (request, response) => {
+    const body = request.body
+    if (!body.name || !body.number) {
+        return response.status(400).send({ error: 'person must have a name and a number'});
+    }
+    if (persons.find(person => person.name === body.name)) {
+        return response.status(409).send({ error: 'name already exists in phonebook'})
+    }
     const person = {
-        name: request.body.name,
-        number: request.body.number,
+        name: body.name,
+        number: body.number,
         id: generateId()
     };
     persons = persons.concat(person);
