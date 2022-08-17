@@ -1,9 +1,15 @@
 const express = require('express');
-const app = express();
 const morgan = require('morgan');
 
+const app = express();
+
 app.use(express.json());
-app.use(morgan('tiny'));
+
+morgan.token('req-body', function getPostData(req, res) {
+    if (req.method === 'POST') return JSON.stringify(req.body);
+});
+
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :req-body'));
 
 let persons = [
     {
@@ -56,10 +62,10 @@ app.delete('/api/persons/:id', (request, response) => {
 app.post('/api/persons', (request, response) => {
     const body = request.body
     if (!body.name || !body.number) {
-        return response.status(400).send({ error: 'person must have a name and a number'});
+        return response.status(400).send({ error: 'person must have a name and a number' });
     }
     if (persons.find(person => person.name === body.name)) {
-        return response.status(409).send({ error: 'name already exists in phonebook'})
+        return response.status(409).send({ error: 'name already exists in phonebook' })
     }
     const person = {
         name: body.name,
