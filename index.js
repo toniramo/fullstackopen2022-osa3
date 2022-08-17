@@ -48,9 +48,22 @@ app.delete('/api/persons/:id', (request, response) => {
         return response.status(404).end();
     }
     persons = persons.filter(person => person.id !== id);
-
     response.status(204).end();
 })
+
+app.post('/api/persons', (request, response) => {
+    const person = {
+        name: request.body.name,
+        number: request.body.number,
+        id: generateId()
+    };
+    persons = persons.concat(person);
+    response.json(person);
+})
+
+const generateId = () => {
+    return Math.floor(Math.random() * 1e6) + 1;
+}
 
 const PORT = 3001;
 app.listen(PORT, () => {
