@@ -1,7 +1,7 @@
 # Puhelinluettelo
 
 Linkki sovellukseen Herokussa:
-https://phonebook-fullstackopen22.herokuapp.com/api/persons
+https://phonebook-fullstackopen22.herokuapp.com/
 
 ## Ohjeita
 
