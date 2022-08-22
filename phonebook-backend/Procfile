@@ -1,1 +1,1 @@
-web: cd ./phonebook-backend && npm start
+web: npm start
