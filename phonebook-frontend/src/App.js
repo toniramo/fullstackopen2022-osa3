@@ -28,7 +28,13 @@ const App = () => {
             setPersons(updatedPersons);
             showNotification(`Updated information of ${newName}.`, "info");
           })
-          .catch(() => handleError(person));
+          .catch(error => {
+            if (error.response.status === 404) {
+              handleMissingPersonError(person);
+            } else {
+              showNotification(error.response.data.error, "error");
+            }
+          })
       }
     } else {
       const person = { "name": newName, "number": newNumber };
@@ -37,7 +43,8 @@ const App = () => {
         .then(response => {
           setPersons(persons.concat(response.data));
           showNotification(`Added ${newName}`, "info");
-        });
+        })
+        .catch(error => showNotification(error.response.data.error, "error"));
     }
     setNewName("");
     setNewNumber("");
@@ -57,7 +64,7 @@ const App = () => {
     setNotification({ "message": null, "type": null })
   }
 
-  const handleError = (person) => {
+  const handleMissingPersonError = (person) => {
     showNotification(
       `Information of ${person.name} has already been removed from server.`,
       "error");
@@ -86,7 +93,7 @@ const App = () => {
           setPersons([...persons].filter(p => p.id !== person.id));
           showNotification(`Deleted ${person.name}.`, "info");
         })
-        .catch(() => handleError(person));
+        .catch(() => handleMissingPersonError(person));
     }
   }
 
