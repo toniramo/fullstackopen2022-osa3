@@ -33,7 +33,7 @@ npm --prefix phonebook-backend/ run <komento>
 ```
 - `start`: käynnistä sovellus paikallisesti nodella
 - `dev`: käynnistä sovellus paikallisesti nodemonin avulla
-- `build:ui`: luo tuotantoversion frontendistä ja kopio vie sen backendiin
+- `build:ui`: luo tuotantoversion frontendistä ja kopioi sen backendiin
 - `deploy`: vie backend (frontendin kanssa, jos `build:ui` ajettu) Herokuun
 - `deploy:full`: tuotantoversio frontendista, sen julkaisu sekä sovelluksen vieminen Herokuun
 - `logs:prod`: seuraa Herokun lokeja
