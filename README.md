@@ -5,6 +5,8 @@ https://phonebook-fullstackopen22.herokuapp.com/
 
 ## Ohjeita
 
+Ohjelma on toteutettu siten, että sovelluksen backend (`phonebook-backend`) tarjoaa myös frontendin tuotantokoodin `phonebook-backend/build/` hakemistoon sijoitettuna. Näin ollen Heroku käyttää ainoastaan alikansiota `phonebook-backend`. Frontendin koodi, jonka perusteella tämän tuotantoversio käännetään, löytyy arvaamattomasti `phonebook-frontend`-hakemistosta.
+
 ### Frontendin tuotantoversio backendin tarjottavaksi
 
 ```sh
@@ -19,7 +21,12 @@ git subtree push --prefix phonebook-backend/ heroku master
 ```
 
 ### Valmiita npm komentoja
-Kaikki komennot ajettavat kansiosta `phonebook-backend/` TAI komennolla
+Kaikki valmiit komennot ajettavat kansiosta `phonebook-backend/` 
+```sh
+npm run <komento>
+```
+
+TAI juuresta komennolla
 
 ```sh
 npm --prefix phonebook-backend/ run <komento>
